@@ -1,0 +1,38 @@
+Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same. Then return the number of unique elements in nums.
+
+Consider the number of unique elements of nums to be k, to get accepted, you need to do the following things:
+
+Change the array nums such that the first k elements of nums contain the unique elements in the order they were present in nums initially. The remaining elements of nums are not important as well as the size of nums.
+Return k.
+
+JAVA CODE 
+
+import java.util.*;
+class Solution{
+    public int removeDuplicates(int[] nums){
+        int n = nums.length;
+        int p = 1;
+        int[] enums = new int[n];
+        enums[0] = nums[0];
+        for(int i=1;i<n;i++){
+            int l = nums[i];
+            int k = contains(enums,l,p);
+            if(k==1){
+                enums[p] = nums[i];
+                p+=1;
+            }
+        }
+        for(int i=0;i<p;i++){
+            nums[i]=enums[i];
+        }
+        return p;
+    }
+    int contains(int[] arr,int val,int l){
+        for(int j=0;j<l;j++){
+            if(arr[j]==val){
+                return 0;
+            }
+        }
+        return 1;
+    }
+}
